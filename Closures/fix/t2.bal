@@ -1,3 +1,4 @@
+int i = 20;
 public function main() {
     int i = 10; // Unused variable
     Foo foo = object {
