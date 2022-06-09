@@ -1,5 +1,5 @@
 public function main() {
-    int i = 10; // Unused variable
+    int i = 10; 
     var foo = object {
         function MyFunc () returns int {
             int x = i;

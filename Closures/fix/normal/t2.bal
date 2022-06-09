@@ -1,20 +1,23 @@
-public function main() {
-    map<int> bmap = {};
-    bmap["i"] = 10;
+map<int> globalMap = {};
 
-    var foo = new Foo(bmap);
+public function main() {
+    map<int> topMap = {};
+    topMap["i"] = 10;     // int i = 10;
+
+    var foo = new Foo(topMap);
     panic error(foo.MyFunc().toString());
 }
 
 class Foo {
-    map<int> oceMap;
+    int j;
 
     function init(map<int> mm) {
-        self.oceMap = mm;
+        self.j = <int>mm["i"];
+        globalMap["MyFunc.i"] = <int>mm["i"];
     }
 
     function MyFunc() returns int {
-        function () returns int xx = () => <int>self.oceMap["i"]; // Runtime crash.
+        function () returns int xx = () => <int>globalMap["MyFunc.i"]; // Runtime crash.
         return xx();
     }
 }
