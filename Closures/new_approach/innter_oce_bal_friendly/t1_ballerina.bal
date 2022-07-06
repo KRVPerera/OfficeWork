@@ -21,8 +21,23 @@ class Foo {
 
     function MyKFunc() returns int {
         globalMap["Foo.MyFunc.k"] = 20; // make available to inner scopes
-        function () returns int iplusK = () => <int>globalMap["Foo.i"]
-                                                + <int>globalMap["Foo.MyFunc.k"];
+        var innerObjectCtor = new Inner_Class(globalMap);
+        return iplusK();
+    }
+
+}
+
+class Inner_Class {
+    int j;
+
+    function init(map<any> mm) {
+        self.j = <int>mm["i"];
+        globalMap["Inner_Class.i"] = <int>mm["i"]; // make available to attached func
+    }
+
+    function MyInner_KFunc() returns int {
+        globalMap["Foo.MyInner_KFunc.k"] = 20; // make available to inner scopes
+        function () returns int xx = () => i + globalMap["Foo.MyInner_KFunc.k"] + k;
         return iplusK();
     }
 

@@ -8,7 +8,7 @@ public function main() {
 
     var foo = new Foo(topMap);
 
-    // io:println(foo.MyKFunc().toBalString());
+    io:println(foo.MyKFunc().toBalString());
     io:println(foo.MyJFunc().toBalString());
 
     var innerFunc = foo.MyKFunc_innerFunc();
@@ -17,6 +17,7 @@ public function main() {
 
 class Foo {
     int j;
+    // map<any> mapC;
 
     function init(map<any> mm) {
         self.j = <int>mm["i"];
@@ -24,23 +25,32 @@ class Foo {
     }
 
     function MyKFunc() returns int {
-        globalMap["Foo.MyFunc.k"] = 20; // make available to inner scopes
-        function () returns int iplusK = () => <int>globalMap["Foo.i"]
-                                                + <int>globalMap["Foo.MyFunc.k"];
+        map<any> MyKFunc = {};
+        MyKFunc["k"] = 20;
+        MyKFunc["i"] = <int>globalMap["Foo.i"];
+
+        function () returns int iplusK = () => <int>MyKFunc["i"]
+                                                + <int>MyKFunc["k"];
         return iplusK();
     }
 
     function MyJFunc() returns int {
-        globalMap["Foo.MyFunc.j"] = 30;
-        function () returns int iplusJ = () => <int>globalMap["Foo.i"] 
-                                                + <int>globalMap["Foo.MyFunc.j"];
+        map<any> MyJFunc = {};
+        MyJFunc["j"] = 20;
+        MyJFunc["i"] = <int>globalMap["Foo.i"];
+
+        function () returns int iplusJ = () => <int>MyJFunc["i"] 
+                                                + <int>MyJFunc["j"];
         return iplusJ();
     }
 
     function MyKFunc_innerFunc() returns function () returns int {
-        globalMap["Foo.MyKFunc_innerFunc.k"] = 200; // make available to inner scopes
-        function () returns int iplusK = () => <int>globalMap["Foo.i"]
-                                                + <int>globalMap["Foo.MyFunc.k"];
+        map<any> MyKFunc_innerFunc = {};
+        MyKFunc_innerFunc["k"] = 200;
+        MyKFunc_innerFunc["i"] = <int>globalMap["Foo.i"];
+
+        function () returns int iplusK = () => <int>MyKFunc_innerFunc["i"]
+                                                + <int>MyKFunc_innerFunc["k"];
         return iplusK;
     }
 }

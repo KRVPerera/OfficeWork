@@ -1,15 +1,20 @@
-public function main() {
+
+// import ballerina/io;
+§§§§§
+public function test() returns int {
     int i = 10; 
-    var foo = object {
-        function MyFunc () returns int {
-            int x = i;
-            function () returns int xx = () => i; // Runtime crash.
-            return xx();
-        }
+    var func = function () returns int {
+        int x = i;
+        // i = 5;
+        return x;
     };
-    panic error(foo.MyFunc().toString());
+
+    // io:println(i);§§
+    // io:println(func().toString());
+    // io:println(i);
+    return func();
 }
 
-type Foo object {
-    function foo() returns int;
-};
+public function main() {
+    var x = test();
+}

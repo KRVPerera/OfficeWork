@@ -1,7 +1,8 @@
 import ballerina/io;
 
 public function main() {
-    final int i = 10;
+    int i = 10;
+
     var foo = object {
         int j = i;
 
