@@ -1,7 +1,7 @@
 // import ballerina/lang.__internal;
 import ballerina/io;
 
-public function test() {
+public function main() {
     var foo = object {
         function getI(int x, int y) returns function () returns int {
             int p1 = 300;
@@ -15,8 +15,4 @@ public function test() {
 
     var funcy = foo.getI(500, 23);
     io:println(funcy());
-}
-
-public function main() {
-    test();
 }

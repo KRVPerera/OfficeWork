@@ -1,17 +1,21 @@
-import ballerina/io;
 // import ballerina/lang.__internal;
 
-public function main() {
+public function test() {
+    int p0 = 45;                                                            // 2
     var foo = 
-        function () returns function () returns int {
-            int p1 = 300;
-            int p2 = 400;
+        function (int z, int y) returns function () returns int {           // 3
+            int p1 = 300;                                                   // 4
+            int p2 = y;                                                     // 4
             var func = function () returns int {
-                return p1 + p2;
+                int p = 34;
+                return p1 + p2 + p0 + z + y + p; // $paramMap$_4[p1] + $paramMap$_4[p2] + $paramMap$_2[p0] + $paramMap$_3[z] + $paramMap$_3[y]
             };
             return func;
         };
     
-    var funcy = foo();
-    io:println(funcy());
+    var funcy = foo(3, 4);
+}
+
+public function main() {
+    test();
 }

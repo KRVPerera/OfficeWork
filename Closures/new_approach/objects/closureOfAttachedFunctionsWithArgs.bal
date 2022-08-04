@@ -28,6 +28,11 @@ public function testAttachedFunction() {
     assertValueEquality(23, funcy());
 }
 
+public function main() {
+    testAttachedFunction();
+    testAttachedFunctionWithArgs();
+}
+
 const ASSERTION_ERROR_REASON = "AssertionError";
 
 function assertTrue(any|error actual) {

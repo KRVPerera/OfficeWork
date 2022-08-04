@@ -1,5 +1,3 @@
-import ballerina/io;
-// import ballerina/lang.__internal;
 
 function TestFuncA(int k) returns int {
     final int p1 = 300;
@@ -11,7 +9,5 @@ function TestFuncA(int k) returns int {
 }
 
 public function main() {
-
     int x = TestFuncA(560);
-    io:println(x);
 }

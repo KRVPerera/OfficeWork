@@ -1,0 +1,54 @@
+
+
+
+int sum = 0;
+
+
+function add(int k) {
+    sum = sum + k;
+}
+
+Thread 1:
+add(20)
+    Psum == 0;
+-->   sum = Psum + 20;
+    sum = 20
+    
+
+Thread 2:
+add(30)
+    Psum == 0; 
+--> sum = Psum + 30
+    sum = 30
+
+sum == 50
+sum == 30
+sum == 20
+
+
+class A {
+    int value;
+
+    int hashCode() {
+        return value * 7;
+    }
+}
+
+set<A> setA = HasSet();
+A simepl1;
+A simpleb;
+
+setA.insert(simple1)
+setA.insert(simpleb)
+
+setA.clear();
+
+
+
+simple1.value = 4;
+
+ArrayList ---------------- > list -> 1000 --> Capacity 1000, 2000, 999*2
+list.clear();
+Capacity == 2000;
+
+list.trimSize();
