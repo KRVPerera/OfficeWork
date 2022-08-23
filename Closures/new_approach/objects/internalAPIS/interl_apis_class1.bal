@@ -1,6 +1,26 @@
 import ballerina/io;
 import ballerina/lang.__internal;
 
+class An1 {
+    int j;
+
+    function init() {
+        self.j = 0;
+    }
+
+    function myInit() {
+        map<any> getMapValue = <map<any>>__internal:getBlockClosureMap(self);
+        self.j = <int>getMapValue["i"]; 
+    }
+
+    function getI() returns int {
+        int p = 300;
+        map<any> getMapValue = <map<any>>__internal:getBlockClosureMap(self);
+        // 10 + 200 + 300 + 10 - 520
+        return <int>getMapValue["i"] + <int>getMapValue["k"] + p + self.j;
+    }
+}
+
 public function main() {
     final int i = 10;
     int k = 200;
@@ -8,21 +28,9 @@ public function main() {
     mm["i"] = 10;
     mm["k"] = 200;
 
-    var foo = object {
-        int j = i;
-
-        function init() {
-            map<any> getMapValue = <map<any>>__internal:getBlockClosureMap(self);
-            self.j = <int>getMapValue["i"]; 
-        }
-
-        function getI() returns int {
-            int p = 300;
-            map<any> getMapValue = <map<any>>__internal:getBlockClosureMap(self);
-            return <int>getMapValue["i"] + <int>getMapValue["k"] + p + self.j;
-        }
-    };
+    var foo = new An1();
     __internal:setBlockClosureMap(foo, mm); // setBlockClosureMap
+    foo.myInit();
     __internal:setParamClosureMap(foo, mm, 1); // setBlockClosureMap
     __internal:printClosureMaps(foo);
 
